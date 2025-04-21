@@ -1,0 +1,60 @@
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import Product from '../models/Product';
+
+dotenv.config();
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI as string);
+    console.log('MongoDB connected for seeding.');
+  } catch (err) {
+    console.error('Failed to connect to MongoDB:', err);
+    process.exit(1);
+  }
+};
+
+const products = [
+  {
+    name: 'Classic Coffee Mug',
+    description: 'White ceramic mug with a clean, minimal design.',
+    price: 9.99,
+    imageUrl: 'https://via.placeholder.com/300x300.png?text=Coffee+Mug',
+    countInStock: 25,
+    category: 'Kitchen',
+  },
+  {
+    name: 'Notebook Set',
+    description: '3-pack of A5 grid notebooks, ideal for journaling or sketching.',
+    price: 12.5,
+    imageUrl: 'https://via.placeholder.com/300x300.png?text=Notebooks',
+    countInStock: 50,
+    category: 'Stationery',
+  },
+  {
+    name: 'Wireless Mouse',
+    description: 'Ergonomic mouse with Bluetooth and USB receiver.',
+    price: 24.99,
+    imageUrl: 'https://via.placeholder.com/300x300.png?text=Mouse',
+    countInStock: 15,
+    category: 'Electronics',
+  },
+];
+
+const seedProducts = async () => {
+  try {
+    await connectDB();
+    await Product.deleteMany();
+    console.log('Existing products cleared.');
+
+    await Product.insertMany(products);
+    console.log('Sample products inserted.');
+
+    process.exit(0);
+  } catch (err) {
+    console.error('Seeding failed:', err);
+    process.exit(1);
+  }
+};
+
+seedProducts();
