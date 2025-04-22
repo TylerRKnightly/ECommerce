@@ -1,14 +1,17 @@
 import { RequestHandler } from 'express';
 import Order from '../models/Order';
-import { IOrder } from '../models/Order';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { AuthenticatedRequest } from '../types/express';
+import Product from '../models/Product';
+import mongoose, { ClientSession } from 'mongoose';
 
 
-export const createOrder = async (
+export const createOrder: RequestHandler = async (
     req: AuthenticatedRequest,
-    res: Response
+    res
   ): Promise<void> => {
+    const session: ClientSession = await mongoose.startSession();
+  
     try {
       const { orderItems, shippingAddress, paymentMethod, totalPrice } = req.body;
   
@@ -17,18 +20,47 @@ export const createOrder = async (
         return;
       }
   
+      session.startTransaction();
+  
+      // 1. Atomically check and decrement inventory
+      for (const item of orderItems) {
+        const updateResult = await Product.updateOne(
+          {
+            _id: item.product,
+            countInStock: { $gte: item.qty }, // only if enough stock
+          },
+          {
+            $inc: { countInStock: -item.qty },
+          },
+          { session }
+        );
+  
+        if (updateResult.modifiedCount === 0) {
+          throw new Error(
+            `Insufficient stock for product ${item.name} — please reduce quantity or try later.`
+          );
+        }
+      }
+  
+      // 2. Create the order after all inventory updates succeed
       const order = new Order({
-        user: req.user!._id, // non-null assertion since it's behind protected middleware
+        user: req.user!._id,
         orderItems,
         shippingAddress,
         paymentMethod,
         totalPrice,
       });
   
-      const createdOrder = await order.save();
+      const createdOrder = await order.save({ session });
+  
+      await session.commitTransaction();
+      session.endSession();
+  
       res.status(201).json(createdOrder);
     } catch (err) {
-      res.status(500).json({ error: 'Server error creating order' });
+      await session.abortTransaction();
+      session.endSession();
+      res.status(400).json({ error: (err as Error).message });
     }
   };
   
