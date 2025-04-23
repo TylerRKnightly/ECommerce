@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+
 import Order from '../models/Order';
 import { Response } from 'express';
 import { AuthenticatedRequest } from '../types/express';
@@ -6,9 +6,9 @@ import Product from '../models/Product';
 import mongoose, { ClientSession } from 'mongoose';
 
 
-export const createOrder: RequestHandler = async (
+export const createOrder = async (
     req: AuthenticatedRequest,
-    res
+    res: Response
   ): Promise<void> => {
     const session: ClientSession = await mongoose.startSession();
   
