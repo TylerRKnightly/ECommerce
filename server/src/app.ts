@@ -17,11 +17,8 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 app.use('/api/products', productRoutes);
-app.use(errorHandler);
 app.use('/api/auth', authRoutes);
-app.use(errorHandler);
-app.use('api/orders', orderRoutes);
-app.use(errorHandler);
+app.use('/api/orders', orderRoutes);
 app.use('/api/cart', cartRoutes);
 app.use(errorHandler);
 
