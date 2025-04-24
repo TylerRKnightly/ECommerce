@@ -16,10 +16,18 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
+console.log('Mounting /api/products');
 app.use('/api/products', productRoutes);
+
+console.log('Mounting /api/auth');
 app.use('/api/auth', authRoutes);
+
+console.log('Mounting /api/orders');
 app.use('/api/orders', orderRoutes);
+
+console.log('Mounting /api/cart');
 app.use('/api/cart', cartRoutes);
+
 app.use(errorHandler);
 
 if (process.env.NODE_ENV === 'production') {
