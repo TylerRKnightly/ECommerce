@@ -1,0 +1,22 @@
+.nav-underline-hover {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-underline-hover::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background-color: currentColor;
+    transition: width 0.2s ease;
+  }
+  
+  .nav-underline-hover:hover::after {
+    width: 100%;
+  }
