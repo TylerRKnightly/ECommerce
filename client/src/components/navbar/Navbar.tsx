@@ -1,6 +1,5 @@
 import React from 'react';
 import { categories } from '../../data/categories';
-import './Navbar.css'
 import { ReactComponent as Logo } from '../../assets/logo.svg'
 import { ReactComponent as UserIcon } from '../../assets/user-solid.svg'
 import { ReactComponent as CartIcon } from '../../assets/cart-shopping-solid.svg'
