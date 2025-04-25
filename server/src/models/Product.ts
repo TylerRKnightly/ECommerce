@@ -1,9 +1,11 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { Category } from './Category';
+import { create } from 'domain';
 
 export interface IProduct extends Document {
   name: string;
   description: string;
+  createdDate?: Date;
   price: number;
   imageUrl: string;
   countInStock: number;
@@ -13,6 +15,7 @@ export interface IProduct extends Document {
 const ProductSchema: Schema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
+  createdDate: { type: Date, default: Date.now },
   price: { type: Number, required: true },
   imageUrl: { type: String },
   countInStock: { type: Number, required: true },
