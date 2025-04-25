@@ -4,26 +4,31 @@ import { ReactComponent as Logo } from '../../assets/logo.svg'
 import { ReactComponent as UserIcon } from '../../assets/user-solid.svg'
 import { ReactComponent as CartIcon } from '../../assets/cart-shopping-solid.svg'
 import { ReactComponent as SearchIcon } from '../../assets/magnifying-glass-solid.svg'
+import { Link } from 'react-router-dom';
+import './Navbar.css'
 
 const Navbar = () => {
     const getCategories = () => {
-        return categories.map((c, idx) => (
-            <button className="btn mx-2" key={idx} style={{ textDecorationLine: 'none' }}>
-                {c}
-            </button>
-        ));
+        return categories.map((c, idx) => {
+            const path = c.toLowerCase().replace(/\s+/g, '-');
+            return (
+                <Link to={`/products/${path}`} className="btn mx-2 nav-underline-hover" key={idx}>
+                    {c}
+                </Link>
+            )
+        });
     }
 
     return (
-        <div className="container-fluid m-0">
+        <div>
             {/* Upper */}
-            <div className="row" style={{ backgroundColor: 'lightgray' }}>
+            <div className="row m-0" style={{ backgroundColor: 'lightgray' }}>
                 <div className='col m-1 d-flex justify-content-end' style={{ color: 'gray' }}>{`Need Help? >`}</div>
             </div>
             {/* Mid */}
             <div className="row align-items-center mx-auto" style={{ maxWidth: '1200px' }}>
                 <div className="col d-flex justify-content-start">
-                    <Logo />
+                    <Link to="/"><Logo style={{ color: 'black' }} /></Link>
                 </div>
                 <div className="col-5" style={{ maxWidth: '600px' }}>
                     <form className="d-flex">
@@ -40,7 +45,7 @@ const Navbar = () => {
             </div>
             <hr className="m-0" />
             {/* Lower */}
-            <div className="row">
+            <div className="row m-0">
                 <div className="col d-flex justify-content-center">
                     {getCategories()}
                 </div>

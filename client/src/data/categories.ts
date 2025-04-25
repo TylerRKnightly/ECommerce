@@ -1,1 +1,2 @@
-export const categories = ['Cat1', 'Cat2', 'Cat3', 'Cat4', 'Cat5'];
+// export const categories = ['Furniture', 'Home Decor', 'Kitchen & Dining', 'Appliances'];
+export const categories = ['Furniture', 'Home Decor'];
