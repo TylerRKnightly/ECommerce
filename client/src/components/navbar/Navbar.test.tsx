@@ -20,22 +20,6 @@ describe('Navbar Component', () => {
         expect(cartButton).toBeInTheDocument();
     });
 
-    // test('renders search input and button', () => {
-    //     render(
-    //         <MemoryRouter>
-    //             <Navbar />
-    //         </MemoryRouter>
-    //     );
-
-    //     // Check if search input is rendered
-    //     const searchInput = screen.getByPlaceholderText(/search/i);
-    //     expect(searchInput).toBeInTheDocument();
-
-    //     // Check if search button is rendered
-    //     const searchButton = screen.getByRole('button', { name: /search/i });
-    //     expect(searchButton).toBeInTheDocument();
-    // });
-
     test('renders categories as links', () => {
         render(
             <MemoryRouter>
