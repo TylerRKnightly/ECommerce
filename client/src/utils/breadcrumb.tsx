@@ -6,6 +6,5 @@ export const getBreadcrumb = (segments:string[]) => {
             <Link to={`/${s.toLowerCase()}`} className='text-decoration-none text-muted'>{s}</Link>
         </li>));
 
-    crumbs.unshift(<li className='breadcrumb-item'><Link to='/' className='text-decoration-none text-muted'>Home</Link></li>);
     return crumbs;
 }

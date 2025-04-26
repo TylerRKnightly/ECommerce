@@ -3,7 +3,7 @@ import { ProductData } from '../types/product';
 import img from '../assets/150x200.svg'
 import { formatCurrency } from '../utils/format';
 
-function ProductCard({ product }: ProductCardProps) {
+function ProductCard({ product, onAddToCart }: ProductCardProps) {
     return (
         <div className='card m-3 my-2' style={{ width: '200px' }}>
             <img className="card-img-top" src={img} alt="" />
@@ -14,7 +14,7 @@ function ProductCard({ product }: ProductCardProps) {
                 </div>
                 <div className='d-flex justify-content-between align-items-center'>
                     <div className='card-text'>{formatCurrency(product.price, false)}</div>
-                    <div className='card-text align-items-center'><button className='btn'>+</button></div>
+                    <div className='card-text align-items-center'><button className='btn' onClick={() => onAddToCart(product)}>+</button></div>
                 </div>
             </div>
         </div>
@@ -25,4 +25,5 @@ export default ProductCard;
 
 interface ProductCardProps {
     product: ProductData;
+    onAddToCart: (p: ProductData) => void;
 }
