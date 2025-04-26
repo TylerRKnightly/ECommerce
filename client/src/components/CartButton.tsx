@@ -42,7 +42,7 @@ const CartButton = () => {
                             cartItems.map(i => (
                                 <li className="list-group-item" key={i._id}>
                                     {i.name}
-                                    <div className="d-flex justify-content-between">
+                                    <div className="d-flex justify-content-between text-muted">
                                         x{i.quantity}
                                         <span>{formatCurrency(i.price, true)}</span>
                                     </div>
@@ -50,9 +50,9 @@ const CartButton = () => {
                             ))
                         }</ul>
                         <hr />
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between fw-bold">
                             Subtotal:
-                            <span>{formatCurrency(cartItems.reduce((prev, curr) => prev + curr.price, 0), true)}</span>
+                            <span>{formatCurrency(cartItems.reduce((prev, curr) => prev + curr.price * curr.quantity, 0), true)}</span>
                         </div>
                         <div className="mt-3">
                             <Link to="/" className="btn w-100" onClick={closeCart}
