@@ -3,13 +3,13 @@
     "target": "ES6",
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "rootDir": ".",             // <-- FIXED: rootDir should be "." (not "src")
+    "rootDir": "src",      // <- only source files are compiled
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": ["node", "jest"]    // <-- FIXED: No trailing comma
+    "types": ["node"]
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"],   // Good
-  "exclude": ["node_modules"]                    // Good
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "tests"]
 }
