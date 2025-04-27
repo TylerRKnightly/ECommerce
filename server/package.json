@@ -7,7 +7,7 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "seed": "ts-node src/seeder/seedProducts.ts",
-    "test": "jest",
+    "test": "tsc --project tsconfig.test.json --noEmit && jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage"
   },
