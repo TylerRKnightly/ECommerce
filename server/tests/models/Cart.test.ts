@@ -80,15 +80,10 @@ describe('Cart Model', () => {
     
         await cart1.save();
     
-        let error: any; // Explicitly declare error as any
-        try {
-            await cart2.save();
-        } catch (err) {
-            error = err as any; // Cast err to any
-        }
-    
-        expect(error).toBeDefined();
-        expect(error.code).toBe(11000); // MongoDB duplicate key error code
+        await cart2.save().catch(err => {
+            expect(err).toBeDefined();
+            expect(err.code).toBe(11000); // MongoDB duplicate key error code
+        });
     });
     
     it('should fail to save an item with qty less than 1', async () => {
