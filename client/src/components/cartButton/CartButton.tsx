@@ -1,17 +1,19 @@
 import React, { useRef } from "react";
-import { ReactComponent as CartIcon } from '../assets/cart-shopping-solid.svg'
-import { ReactComponent as DeleteIcon } from '../assets/trash-can-regular.svg'
+import { ReactComponent as CartIcon } from '../../assets/cart-shopping-solid.svg'
+import { ReactComponent as DeleteIcon } from '../../assets/trash-can-regular.svg'
 import { Offcanvas } from 'bootstrap';
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 import { Link } from "react-router-dom";
-import { formatCurrency } from "../utils/format";
-import { updateQuantity, removeFromCart } from '../store/cartSlice';
+import { formatCurrency } from "../../utils/format";
+import { updateQuantity, removeFromCart } from '../../store/cartSlice';
+import './CartButton.css'
 
 const CartButton = () => {
     const cartItems = useSelector((state: RootState) => state.cart.cartItems);
     const cartRef = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch();
+    const itemCount = cartItems.reduce((sum, i) => sum + i.quantity, 0)
 
 
     const openCart = () => {
@@ -29,7 +31,14 @@ const CartButton = () => {
     };
 
     return (<>
-        <button className='btn' onClick={openCart}><CartIcon style={{ height: '25px' }} /></button>
+        <div style={{ display: 'inline-block', position: 'relative' }}>
+            <button className='btn' onClick={openCart}>
+                <CartIcon style={{ height: '25px' }} />
+                {itemCount > 0 && (
+                    <span className="badge bg-secondary">{itemCount}</span>
+                )}
+            </button>
+        </div>
 
         <div ref={cartRef} className='offcanvas offcanvas-end' tabIndex={-1} aria-labelledby='cartSidebarLabel'>
             <div className="offcanvas-header">
@@ -51,10 +60,9 @@ const CartButton = () => {
                                         <div className="d-flex align-items-center">
                                             <button
                                                 className='btn btn-sm'
+                                                // onClick={() => dispatch(updateQuantity({ id: i._id, quantity: i.quantity - 1 }))}
                                                 onClick={(e) => {
-                                                    setTimeout(() => {
-                                                        (e.target as HTMLButtonElement).blur();
-                                                    }, 0);
+                                                    (e.currentTarget as HTMLButtonElement).blur(); // 👈 manually remove focus
                                                     dispatch(updateQuantity({ id: i._id, quantity: i.quantity - 1 }));
                                                 }}
                                                 disabled={i.quantity <= 1}

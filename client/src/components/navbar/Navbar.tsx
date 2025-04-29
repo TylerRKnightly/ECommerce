@@ -5,7 +5,9 @@ import { ReactComponent as UserIcon } from '../../assets/user-solid.svg'
 import { ReactComponent as SearchIcon } from '../../assets/magnifying-glass-solid.svg'
 import { Link } from 'react-router-dom';
 import './Navbar.css'
-import CartButton from '../CartButton';
+import CartButton from '../cartButton/CartButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 const Navbar = () => {
     const getCategories = () => {
