@@ -1,15 +1,15 @@
 export interface ProductData {
-    _id: string;
+    _id:string;
     name: string;
     description: string;
+    createdDate?: Date;
     price: number;
     imageUrl?: string;
     countInStock: number;
     category: Category;
 }
 
-type Category = {
+export type Category = {
     name: string;
-    subcategory: string;
     tags: string[]
 }

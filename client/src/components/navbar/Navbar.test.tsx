@@ -3,14 +3,23 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Navbar from './Navbar';
 import { categories } from '../../data/categories';
+import { Provider } from 'react-redux';
+import {store} from '../../store/store'
 
-describe('Navbar Component', () => {
-    test('renders logo and navigation buttons', () => {
-        render(
+const getComponent = () => {
+    return render(
+        <Provider store={store}>
             <MemoryRouter>
                 <Navbar />
             </MemoryRouter>
-        );
+        </Provider>
+    );
+}
+
+describe('Navbar Component', () => {
+    test('renders logo and navigation buttons', () => {
+        getComponent();
+
         const logo = screen.getByRole('link', { name: /logo/i });
         expect(logo).toBeInTheDocument();
 
@@ -21,11 +30,7 @@ describe('Navbar Component', () => {
     });
 
     test('renders categories as links', () => {
-        render(
-            <MemoryRouter>
-                <Navbar />
-            </MemoryRouter>
-        );
+        getComponent();
 
         // Check if all categories are rendered as links
         categories.forEach((category) => {
@@ -36,11 +41,7 @@ describe('Navbar Component', () => {
     });
 
     test('renders "Need Help?" text', () => {
-        render(
-            <MemoryRouter>
-                <Navbar />
-            </MemoryRouter>
-        );
+        getComponent();
 
         // Check if "Need Help?" text is rendered
         const needHelpText = screen.getByText(/need help\?/i);

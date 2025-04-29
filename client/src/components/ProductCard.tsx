@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProductData } from '../types/product';
-import img from '../assets/150x200.svg'
+import img from '../assets/product-placeholder.svg'
 import { formatCurrency } from '../utils/format';
 
 function ProductCard({ product, onAddToCart }: ProductCardProps) {
