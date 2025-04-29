@@ -2,10 +2,12 @@ import React from 'react';
 import { categories } from '../../data/categories';
 import { ReactComponent as Logo } from '../../assets/logo.svg'
 import { ReactComponent as UserIcon } from '../../assets/user-solid.svg'
-import { ReactComponent as CartIcon } from '../../assets/cart-shopping-solid.svg'
 import { ReactComponent as SearchIcon } from '../../assets/magnifying-glass-solid.svg'
 import { Link } from 'react-router-dom';
 import './Navbar.css'
+import CartButton from '../cartButton/CartButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 const Navbar = () => {
     const getCategories = () => {
@@ -21,11 +23,11 @@ const Navbar = () => {
 
     return (
         <div>
-            {/* Upper */}
+            {/* Banner */}
             <div className="row m-0" style={{ backgroundColor: 'lightgray' }}>
                 <div className='col m-1 d-flex justify-content-end' style={{ color: 'gray' }}>{`Need Help? >`}</div>
             </div>
-            {/* Mid */}
+            {/* Upper */}
             <div className="row align-items-center mx-auto" style={{ maxWidth: '1200px' }}>
                 <div className="col d-flex justify-content-start">
                     <Link to="/"><Logo style={{ color: 'black' }} /></Link>
@@ -39,7 +41,7 @@ const Navbar = () => {
                 <div className="col d-flex justify-content-end">
                     <div>
                         <button className='btn px-4'><UserIcon style={{ height: '25px' }} /></button>
-                        <button className='btn'><CartIcon style={{ height: '25px' }} /></button>
+                        <CartButton/>
                     </div>
                 </div>
             </div>

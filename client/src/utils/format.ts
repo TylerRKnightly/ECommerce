@@ -1,5 +1,8 @@
 export const formatCurrency = (amt: number, showDecimals: boolean): string => {
-    return `$${(amt / 100).toFixed(showDecimals ? 2 : 0)}`;
+    return `$${(amt / 100).toLocaleString(undefined, {
+        minimumFractionDigits: showDecimals ? 2 : 0,
+        maximumFractionDigits: showDecimals ? 2 : 0,
+      })}`;
 }
 
 export const unslugify = (slug: string): string => {
