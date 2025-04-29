@@ -18,33 +18,33 @@ const products = [
     {
       name: 'Classic Coffee Mug',
       description: 'White ceramic mug with a clean, minimal design.',
-      price: 9.99,
+      price: 999,
       imageUrl: 'https://via.placeholder.com/300x300.png?text=Coffee+Mug',
       countInStock: 25,
       category: {
-        name: 'Kitchen',
+        name: 'kitchen',
         tags: ['mug', 'ceramic', 'drinkware']
       }
     },
     {
       name: 'Notebook Set',
       description: '3-pack of A5 grid notebooks, ideal for journaling or sketching.',
-      price: 12.5,
+      price: 1250,
       imageUrl: 'https://via.placeholder.com/300x300.png?text=Notebooks',
       countInStock: 50,
       category: {
-        name: 'Stationery',
+        name: 'stationery',
         tags: ['notebook', 'paper', 'stationery']
       }
     },
     {
       name: 'Wireless Mouse',
       description: 'Ergonomic mouse with Bluetooth and USB receiver.',
-      price: 24.99,
+      price: 2499,
       imageUrl: 'https://via.placeholder.com/300x300.png?text=Mouse',
       countInStock: 15,
       category: {
-        name: 'Electronics',
+        name: 'electronics',
         tags: ['mouse', 'wireless', 'accessory']
       }
     }
