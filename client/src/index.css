@@ -17,8 +17,6 @@ code {
 }
 
 button:disabled,
-button:disabled:focus,
-button:disabled:focus-visible,
 button:disabled:active {
   outline: none !important;
   box-shadow: none !important;

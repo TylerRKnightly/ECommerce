@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { ReactComponent as CartIcon } from '../../assets/cart-shopping-solid.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/trash-can-regular.svg'
 import { Offcanvas } from 'bootstrap';
@@ -60,11 +60,7 @@ const CartButton = () => {
                                         <div className="d-flex align-items-center">
                                             <button
                                                 className='btn btn-sm'
-                                                // onClick={() => dispatch(updateQuantity({ id: i._id, quantity: i.quantity - 1 }))}
-                                                onClick={(e) => {
-                                                    (e.currentTarget as HTMLButtonElement).blur(); // 👈 manually remove focus
-                                                    dispatch(updateQuantity({ id: i._id, quantity: i.quantity - 1 }));
-                                                }}
+                                                onClick={() => dispatch(updateQuantity({ id: i._id, quantity: i.quantity - 1 }))}
                                                 disabled={i.quantity <= 1}
                                             >-</button>
                                             <span className="mx-1"><small>{i.quantity}</small></span>
@@ -89,7 +85,7 @@ const CartButton = () => {
                             <span>{formatCurrency(cartItems.reduce((prev, curr) => prev + curr.price * curr.quantity, 0), true)}</span>
                         </div>
                         <div className="mt-3">
-                            <Link to="/" className="btn w-100" onClick={closeCart}>Checkout</Link>
+                            <Link to="/cart" className="btn w-100" onClick={closeCart}>Checkout</Link>
                         </div>
                     </>
                 )}
