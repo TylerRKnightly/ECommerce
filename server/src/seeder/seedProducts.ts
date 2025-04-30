@@ -18,12 +18,34 @@ const products = [
     {
       name: 'Classic Coffee Mug',
       description: 'White ceramic mug with a clean, minimal design.',
-      price: 999,
+      price: 599,
       imageUrl: 'https://via.placeholder.com/300x300.png?text=Coffee+Mug',
       countInStock: 25,
       category: {
         name: 'kitchen',
         tags: ['mug', 'ceramic', 'drinkware']
+      }
+    },
+    {
+      name: 'Metal Coffee Mug',
+      description: 'Coffee mug, but extreme.',
+      price: 999,
+      imageUrl: 'https://via.placeholder.com/300x300.png?text=Coffee+Mug',
+      countInStock: 25,
+      category: {
+        name: 'kitchen',
+        tags: ['mug', 'metal', 'drinkware']
+      }
+    },
+    {
+      name: 'Metal Serving Plate',
+      description: 'Don\'t put it in the microwave.',
+      price: 1399,
+      imageUrl: 'https://via.placeholder.com/300x300.png?text=Coffee+Mug',
+      countInStock: 25,
+      category: {
+        name: 'kitchen',
+        tags: ['plate', 'metal', 'plateware']
       }
     },
     {
@@ -45,7 +67,7 @@ const products = [
       countInStock: 15,
       category: {
         name: 'electronics',
-        tags: ['mouse', 'wireless', 'accessory']
+        tags: ['mouse', 'metal', 'accessory']
       }
     }
   ];
