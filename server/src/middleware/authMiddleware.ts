@@ -15,10 +15,10 @@ export const protect = async (
       const token = authHeader.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
 
-      if (decoded.role === 'guest') {
-        req.user = { role: 'guest' };
-        return next();
-      }
+      // if (decoded.role === 'guest') {
+      //   req.user = { role: 'guest' };
+      //   return next();
+      // }
 
       const user = await User.findById(decoded.id).select('-password') as {
         _id: string;
