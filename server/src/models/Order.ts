@@ -12,7 +12,7 @@ interface ShippingAddress {
   address: string;
   city: string;
   postalCode: string;
-  country: string;
+  country?: string;
 }
 
 export interface IOrder extends Document {
@@ -53,7 +53,6 @@ const OrderSchema: Schema = new Schema(
       required: true,
       validate: {
         validator: function (value: any) {
-          // Ensure the object is not empty and all required fields are present
           return (
             value &&
             typeof value === 'object' &&

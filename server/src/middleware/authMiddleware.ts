@@ -13,7 +13,12 @@ export const protect = async (
   if (authHeader && authHeader.startsWith('Bearer')) {
     try {
       const token = authHeader.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string, role:string };
+
+      if (decoded.role === 'guest') {
+        req.user = { role: 'guest' };
+        return next();
+      }
 
       const user = await User.findById(decoded.id).select('-password') as {
         _id: string;
@@ -24,11 +29,11 @@ export const protect = async (
 
       if (!user) {
         res.status(401).json({ error: 'User not found' });
-        return; // 👈 this is important
+        return;
       }
 
       req.user = user;
-      next(); // ✅ pass control to the next middleware/route
+      next();
     } catch (error) {
       res.status(401).json({ error: 'Not authorized, invalid token' });
       return;
