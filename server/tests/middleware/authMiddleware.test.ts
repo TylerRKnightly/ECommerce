@@ -2,9 +2,8 @@ import { protect } from '../../src/middleware/authMiddleware';
 import jwt from 'jsonwebtoken';
 import User from '../../src/models/User';
 import { Response, NextFunction } from 'express';
-import { AuthenticatedRequest } from '../../src/types/express'; // <-- Correct
+import { AuthenticatedRequest } from '../../src/types/express';
 
-// Mock dependencies
 jest.mock('jsonwebtoken');
 jest.mock('../../src/models/User', () => ({
     __esModule: true,
@@ -22,7 +21,7 @@ describe('protect middleware', () => {
     req = {
       headers: {},
       user: undefined,
-    } as AuthenticatedRequest; // 🛠️ no `unknown` cast, just as AuthenticatedRequest
+    } as AuthenticatedRequest;
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
@@ -44,7 +43,7 @@ describe('protect middleware', () => {
       throw new Error('Invalid token');
     });
 
-    req.headers!.authorization = 'Bearer invalidtoken'; // 🛠️ notice the !
+    req.headers!.authorization = 'Bearer invalidtoken';
 
     await protect(req as AuthenticatedRequest, res as Response, next);
 
@@ -57,7 +56,7 @@ describe('protect middleware', () => {
     (jwt.verify as jest.Mock).mockReturnValue({ id: 'fakeUserId' });
     (User.findById as jest.Mock).mockResolvedValue(null);
 
-    req.headers!.authorization = 'Bearer validtoken'; // 🛠️ notice the !
+    req.headers!.authorization = 'Bearer validtoken';
 
     await protect(req as AuthenticatedRequest, res as Response, next);
 

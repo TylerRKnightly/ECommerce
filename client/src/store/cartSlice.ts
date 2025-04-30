@@ -31,11 +31,15 @@ const cartSlice = createSlice({
             const item = state.cartItems.find( i=> i._id === action.payload.id);
             if (item) item.quantity = action.payload.quantity;
             localStorage.setItem('cart', JSON.stringify(state.cartItems))
+        },
+        clearCart: (state) => {
+            state.cartItems = [];
+            localStorage.removeItem('cart');
         }
     }
 });
 
-export const { addToCart, removeFromCart, updateQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
 
 export interface CartItem extends ProductData {

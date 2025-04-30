@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { mockProducts } from '../data/mockProducts';
 import ProductCard from '../components/ProductCard';
 import ProductsFilter from '../components/ProductsFilter';
 import { getBreadcrumb } from '../utils/breadcrumb';
@@ -19,6 +18,7 @@ const Products = () => {
     const [products, setProducts] = useState<ProductData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -37,7 +37,7 @@ const Products = () => {
         fetchProducts();
     }, []);
 
-    const preFilterProducts = () => {
+    const preFilterProducts = ():ProductData[] => {
         if (products) {
             const snakeCatName = categoryName?.replace(/-/g, '_');
             return snakeCatName ? products.filter((p) => p.category.name === snakeCatName) : products;
@@ -49,8 +49,20 @@ const Products = () => {
         dispatch(addToCart(product));
     };
 
+    const filterProducts = (products: ProductData[]) => {
+        return products.filter((p) => selectedFilters.every(tag => p.category.tags.includes(tag)));
+    };
+
     if (loading) {
-        return (<>Loading...</>);
+        return (
+            <div className='row mx-auto' style={{ maxWidth: '1200px', height: '75vh' }}>
+                <div className="d-flex justify-content-center align-items-center">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     if (error) {
@@ -69,12 +81,13 @@ const Products = () => {
                     {(categoryName && unslugify(categoryName)) || 'All'}
                 </li>
             </ol>
+
             <div className='col-auto p-3'>
-                <ProductsFilter />
+                <ProductsFilter selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
             </div>
             <div className='col p-0'>
                 <div className="row">
-                    {preFilterProducts().map((p) => (
+                    {filterProducts(preFilterProducts()).map((p) => (
                         <div className='col-auto p-0' key={p._id}>
                             <ProductCard product={p} onAddToCart={handleAddToCart} />
                         </div>

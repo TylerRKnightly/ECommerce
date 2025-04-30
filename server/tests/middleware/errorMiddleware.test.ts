@@ -29,7 +29,7 @@ describe('errorHandler middleware', () => {
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({
       message: 'Test error',
-      stack: expect.any(String), // stack should always exist
+      stack: expect.any(String),
     });
   });
 
@@ -56,6 +56,6 @@ describe('errorHandler middleware', () => {
       stack: '🍕',
     });
 
-    process.env.NODE_ENV = 'test'; // ✅ Reset after
+    process.env.NODE_ENV = 'test';
   });
 });

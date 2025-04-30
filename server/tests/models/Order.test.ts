@@ -102,7 +102,6 @@ describe('Order Model', () => {
         {
           name: 'Incomplete Product',
           qty: 2,
-          // missing price and product fields
         },
       ],
     };
