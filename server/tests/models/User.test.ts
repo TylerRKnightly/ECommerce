@@ -74,7 +74,7 @@ describe('User Model', () => {
 
     expect(error).toBeDefined();
     expect(error.name).toBe('MongoServerError');
-    expect(error.code).toBe(11000); // Duplicate key error code
+    expect(error.code).toBe(11000);
   });
 
   it('should fail to create a user without required fields', async () => {

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../store/cartSlice";
+import { RootState } from "../../store/store";
+import { submitOrder } from "../../services/orderservice";
 
 const CheckoutForm = () => {
+    const cartItems = useSelector((state: RootState) => state.cart.cartItems);
     const dispatch = useDispatch();
+
     const [form, setForm] = useState({
         email: '',
         firstName: '',
@@ -19,10 +23,35 @@ const CheckoutForm = () => {
         setForm({ ...form, [e.target.name]: e.target.value })
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Submitting checkout data', form);
-        dispatch(clearCart())
+        const fullName = `${form.firstName} ${form.lastName}`;
+
+        const orderPayload = {
+            shippingAddress: {
+                fullName,
+                address: `${form.address1} ${form.address2}`,
+                city: form.city,
+                postalCode: form.zip,
+                country: 'US'
+            },
+            paymentMethod: 'credit',
+            orderItems: cartItems.map(item => ({
+                name: item.name,
+                qty: item.quantity,
+                price: item.price,
+                product: item._id,
+            })),
+            totalPrice: cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+        };
+
+        try {
+            const response = await submitOrder(orderPayload);
+            console.log('Order placed:', response);
+            dispatch(clearCart());
+        } catch (err) {
+            console.error('Error placing order:', err);
+        }
     };
 
     return (<>

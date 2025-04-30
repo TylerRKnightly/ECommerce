@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import Cart, { ICart } from '../../src/models/Cart'; // Adjust the path as necessary
+import Cart, { ICart } from '../../src/models/Cart';
 
 describe('Cart Model', () => {
     let mongoServer: MongoMemoryServer;
@@ -42,13 +42,13 @@ describe('Cart Model', () => {
     });
 
     it('should fail to create a cart without required fields', async () => {
-        const cart = new Cart({}); // Missing required fields
+        const cart = new Cart({});
     
-        let error: any; // Explicitly declare error as any
+        let error: any;
         try {
             await cart.save();
         } catch (err) {
-            error = err as any; // Cast err to any
+            error = err as any;
         }
     
         expect(error).toBeDefined();
@@ -82,7 +82,7 @@ describe('Cart Model', () => {
     
         await cart2.save().catch(err => {
             expect(err).toBeDefined();
-            expect(err.code).toBe(11000); // MongoDB duplicate key error code
+            expect(err.code).toBe(11000);
         });
     });
     
@@ -92,18 +92,18 @@ describe('Cart Model', () => {
             items: [
                 {
                     product: new mongoose.Types.ObjectId(),
-                    qty: 0, // Invalid quantity
+                    qty: 0,
                 },
             ],
         };
     
         const cart = new Cart(cartData);
     
-        let error: any; // Explicitly declare error as any
+        let error: any;
         try {
             await cart.save();
         } catch (err) {
-            error = err as any; // Cast err to any
+            error = err as any;
         }
     
         expect(error).toBeDefined();

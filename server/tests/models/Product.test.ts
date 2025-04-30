@@ -45,7 +45,7 @@ describe('Product Model', () => {
   });
 
   it('should fail to create a product without required fields', async () => {
-    const product = new ProductModel({}); // Missing required fields
+    const product = new ProductModel({});
 
     let error: any;
     try {
