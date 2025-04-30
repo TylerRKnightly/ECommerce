@@ -13,7 +13,7 @@ export const protect = async (
   if (authHeader && authHeader.startsWith('Bearer')) {
     try {
       const token = authHeader.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string, role:string };
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
 
       if (decoded.role === 'guest') {
         req.user = { role: 'guest' };
