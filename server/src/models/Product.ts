@@ -9,7 +9,7 @@ export interface IProduct extends Document {
   price: number;
   imageUrl: string;
   countInStock: number;
-  category: Category | string; // Category can be a string or an object
+  category: Category | string;
 }
 
 const ProductSchema: Schema = new Schema({
