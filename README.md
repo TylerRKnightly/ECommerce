@@ -64,5 +64,8 @@ npm install
 cd ../server
 npm install
 
+# After setting up your .env and installing dependencies, populate products:
+npm run seed
+
 # Run the development server
 npm run dev
