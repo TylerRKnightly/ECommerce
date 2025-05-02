@@ -27,7 +27,7 @@ Live Demo: [knightly-store.onrender.com](https://knightly-store.onrender.com)
 
 ---
 
-## 🛠 Work in Progress
+## Work in Progress
 
 This project is under active development. Upcoming features include:
 - Payment integration
@@ -37,6 +37,19 @@ This project is under active development. Upcoming features include:
 ---
 
 ## Local Setup
+
+**Environment Variables**
+
+In `/server/.env`:
+```
+MONGO_URI=your-mongo-uri
+JWT_SECRET=your-jwt-secret
+```
+
+In `/client/.env`:
+```
+REACT_APP_API_URL=http://localhost:5000
+```
 
 ```bash
 # Clone the repo
@@ -50,13 +63,6 @@ npm install
 # Install backend dependencies
 cd ../server
 npm install
-
-## In `/server/.env`:
-MONGO_URI=your-mongo-uri
-JWT_SECRET=your-jwt-secret
-
-## In `/client/.env`:
-REACT_APP_API_URL=http://localhost:5000
 
 # Run the development server
 npm run dev
