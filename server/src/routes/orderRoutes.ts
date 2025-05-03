@@ -6,5 +6,6 @@ const router = Router();
 
 router.post('/', protect, createOrder);
 router.get('/mine', protect, getMyOrders);
+router.get('/:orderId', protect, getMyOrders)
 
 export default router;
