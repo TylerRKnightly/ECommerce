@@ -75,3 +75,35 @@ export const createOrder = async (
       res.status(500).json({ error: 'Server error fetching orders' });
     }
   };
+
+  export const getOrderById = async (
+    req: AuthenticatedRequest,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const { orderId } = req.params;
+  
+      if (!mongoose.Types.ObjectId.isValid(orderId)) {
+        res.status(400).json({ error: 'Invalid order ID' });
+        return;
+      }
+  
+      const order = await Order.findById(orderId).populate('user', 'name email');
+  
+      if (!order) {
+        res.status(404).json({ error: 'Order not found' });
+        return;
+      }
+  
+      // 🛡️ Enforce ownership or admin role
+      if (order.user._id.toString() !== req.user!._id.toString() && req.user!.role !== 'admin') {
+        res.status(403).json({ error: 'Not authorized to view this order' });
+        return;
+      }
+  
+      res.status(200).json(order);
+    } catch (err) {
+      res.status(500).json({ error: 'Server error fetching the order' });
+    }
+  };
+  
