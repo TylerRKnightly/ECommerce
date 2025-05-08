@@ -7,7 +7,7 @@ const Footer = () => {
       <Container>
         <Row className="mb-3">
           <Col md={4}>
-            <h5>Demo Site</h5>
+            <h5>Knightly Store</h5>
             <p className="text-muted small">Your one-stop shop for all things demo-related.</p>
           </Col>
           <Col md={4}>
