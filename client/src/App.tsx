@@ -8,19 +8,20 @@ import Footer from './components/footer/Footer';
 import Checkout from './pages/Checkout';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
+import UserDashboard from './pages/User';
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/" element={<Products />} />
+        <Route path="/" element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/products/:categoryName' element={<Products />} />
         <Route path='/cart' element={<Cart/> }/>
         <Route path='/login' element={<Login/> }/>
         <Route path='/checkout' element={<Checkout/> }/>
+        <Route path='/account' element={<UserDashboard/> }/>
       </Routes>
       <Footer />
     </Router>
