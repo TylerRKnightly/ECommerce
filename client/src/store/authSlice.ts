@@ -25,9 +25,9 @@ export const login = createAsyncThunk('auth/login', async (credentials: LoginCre
     try {
         return await authService.login(credentials);
     } catch (error) {
-        if (axios.isAxiosError(error) && 
-        error.response?.data &&
-        (error.response.data as {message:string}).message) {
+        if (axios.isAxiosError(error) &&
+            error.response?.data &&
+            (error.response.data as { message: string }).message) {
             return thunkAPI.rejectWithValue((error.response.data as { message: string }).message);
         }
         return thunkAPI.rejectWithValue('Login failed');
@@ -47,6 +47,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout(state) {
+            authService.logout();
             state.user = null;
         },
         clearAuthError(state) {

@@ -7,13 +7,13 @@ const User = () => {
         const dispatch = useAppDispatch();
         const navigate = useNavigate();
 
-    const handleLogout = () => {
-            authService.logout();
-            dispatch(logout());
-            navigate('/');
-    };
+        const handleLogout = () => {
+                authService.logout();
+                dispatch(logout());
+                navigate('/');
+        };
 
-    return (<><button className="btn" onClick={handleLogout}>Logout</button></>);
+        return (<><button className="btn" onClick={handleLogout}>Logout</button></>);
 }
 
 export default User;
