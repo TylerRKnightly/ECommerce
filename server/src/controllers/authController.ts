@@ -2,9 +2,9 @@ import { Request, RequestHandler, Response } from 'express';
 import User from '../models/User';
 import jwt from 'jsonwebtoken';
 
-const generateToken = (id: string) => {
+const generateToken = (id: string, rememberMe: boolean) => {
   return jwt.sign({ id }, process.env.JWT_SECRET as string, {
-    expiresIn: '30d',
+    expiresIn: rememberMe ? '7d' : '1h',
   });
 };
 
@@ -38,7 +38,7 @@ export const registerUser: RequestHandler = async (req: Request, res: Response) 
       lastName: user.lastName,
       email: user.email,
       role: user.role,
-      token: generateToken(user._id as string),
+      token: generateToken(user._id as string, false),
     });
     return;
   } else {
@@ -48,7 +48,7 @@ export const registerUser: RequestHandler = async (req: Request, res: Response) 
 };
 
 export const loginUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
 
   const user = await User.findOne({ email });
 
@@ -59,7 +59,7 @@ export const loginUser = async (req: Request, res: Response) => {
       lastName: user.lastName,
       email: user.email,
       role: user.role,
-      token: generateToken(user._id as string),
+      token: generateToken(user._id as string, rememberMe), 
     });
   } else {
     res.status(401).json({ error: 'Invalid email or password' });
