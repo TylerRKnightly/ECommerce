@@ -57,6 +57,9 @@ REACT_APP_API_URL=http://localhost:5000
 git clone https://github.com/TylerRKnightly/ECommerce.git
 cd ECommerce
 
+# Populate mock data into your database
+npm run seed
+
 # Run the development server
 npm run dev
 ```

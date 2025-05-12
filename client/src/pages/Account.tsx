@@ -47,33 +47,52 @@ const User = () => {
 	// };
 
 	return (
-		<>
-			<>
-				<p>Order List</p>
-				<div className="pb-4">
-					{orders.map((o) => (
-						<div key={o._id}>
-							{`${o.createdAt} - ${o._id} - ${o.isDelivered}`}
-						</div>
-					))}
+		<div className="container py-4" style={{ maxWidth: '800px' }}>
+			<h2 className="mb-4">Account Overview</h2>
+
+			{/* Order List */}
+			<section className="mb-5">
+				<h4 className="mb-3">Recent Orders</h4>
+				{orders.length === 0 ? (
+					<p className="text-muted">No orders found.</p>
+				) : (
+					<ul className="list-group">
+						{orders.map((o) => (
+							<li key={o._id} className="list-group-item d-flex justify-content-between align-items-center">
+								<div>
+									<small className="text-muted">{new Date(o.createdAt).toLocaleDateString()}</small><br />
+									<strong>Order ID:</strong> {o._id}
+								</div>
+								<span className={`badge ${o.isDelivered ? 'bg-success' : 'bg-warning text-dark'}`}>
+									{o.isDelivered ? 'Delivered' : 'Processing'}
+								</span>
+							</li>
+						))}
+					</ul>
+				)}
+			</section>
+
+			{/* Personal Info */}
+			<section className="mb-5">
+				<h4 className="mb-3">Personal Information</h4>
+				<div className="border p-3 rounded bg-light">
+					<p className="mb-1"><strong>First Name:</strong> {user?.firstName || '-'}</p>
+					<p className="mb-1"><strong>Last Name:</strong> {user?.lastName || '-'}</p>
+					<p className="mb-0"><strong>Email:</strong> {user?.email || '-'}</p>
 				</div>
-			</>
-			<>
-				<p>Personal Info</p>
-				<div className="pb-4">
-					<p className="m-0">First Name: {user?.firstName || ''}</p>
-					<p className="m-0">Last Name: {user?.lastName || ''}</p>
-					<p className="m-0">Email Address: {user?.email || ''}</p>
+			</section>
+
+			{/* Address Info */}
+			<section>
+				<h4 className="mb-3">Shipping Address</h4>
+				<div className="border p-3 rounded bg-light">
+					{user?.shippingAddress?.address
+						? <p className="mb-0">{user.shippingAddress.address}</p>
+						: <p className="text-muted mb-0">No shipping address available.</p>
+					}
 				</div>
-			</>
-			<>
-				<p>Address Management</p>
-				<div className="pb-4">
-					<p>{user?.shippingAddress?.address || ''}</p> 
-				</div>
-			</>
-			{/* <button className="btn" onClick={handleLogout}>Logout</button> */}
-		</>
+			</section>
+		</div>
 	);
 }
 
