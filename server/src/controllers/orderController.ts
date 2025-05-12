@@ -69,12 +69,29 @@ export const createOrder = async (
     res: Response
   ): Promise<void> => {
     try {
-      const orders = await Order.find({ user: req.user!._id });
+      console.log('🔍 getMyOrders called by user:', req.user);
+  
+      if (!req.user || !req.user._id) {
+        console.warn('⚠️ No user found in request');
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+  
+      const userId = req.user._id.toString();
+      console.log('📦 Fetching orders for user ID:', userId);
+  
+      const orders = await Order.find({ user: userId });
+  
+      console.log(`✅ Found ${orders.length} orders for user ${userId}`);
+      console.log('📦 Orders:', orders);
+  
       res.json(orders);
     } catch (err) {
+      console.error('❌ Error in getMyOrders:', err);
       res.status(500).json({ error: 'Server error fetching orders' });
     }
   };
+  
 
   export const getOrderById = async (
     req: AuthenticatedRequest,
