@@ -66,12 +66,11 @@ const Products = () => {
     }
 
     if (error) {
-        console.log(error)
         return (<>Error</>);
     }
 
     return (
-        <div className='row mx-auto' style={{ maxWidth: '1200px' }}>
+        <>
             <ol className='breadcrumb mx-3'>
                 <li className='breadcrumb-item' key={'home'}>
                     <Link to='/' className='text-decoration-none text-muted'>Home</Link>
@@ -94,7 +93,7 @@ const Products = () => {
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

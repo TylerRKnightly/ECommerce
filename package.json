@@ -1,0 +1,15 @@
+{
+    "name": "ECommerce",
+    "scripts": {
+        "dev": "npm run prepare && concurrently \"npm run backend:start\" \"npm run frontend:start\"",
+        "prepare": "npm run backend:setup && npm run frontend:setup",
+        "backend:setup": "cd server && npm i",
+        "frontend:setup": "cd client && npm i",
+        "backend:start": "cd server && npm run dev",
+        "frontend:start": "cd client && npm start",
+        "refresh": "npm run seed"
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
+}

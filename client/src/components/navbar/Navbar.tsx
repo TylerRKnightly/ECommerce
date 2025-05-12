@@ -44,10 +44,8 @@ const Navbar = () => {
                         </form>
                     </div>
                     <div className="col d-flex justify-content-end">
-                        <div>
                             <UserButton />
-                            <CartButton />
-                        </div>
+                            <span><CartButton /></span>
                     </div>
                 </>)}
             </div>

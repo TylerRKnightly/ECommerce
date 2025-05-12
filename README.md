@@ -44,6 +44,7 @@ In `/server/.env`:
 ```
 MONGO_URI=your-mongo-uri
 JWT_SECRET=your-jwt-secret
+PORT=5000 
 ```
 
 In `/client/.env`:
@@ -56,16 +57,9 @@ REACT_APP_API_URL=http://localhost:5000
 git clone https://github.com/TylerRKnightly/ECommerce.git
 cd ECommerce
 
-# Install frontend dependencies
-cd client
-npm install
-
-# Install backend dependencies
-cd ../server
-npm install
-
-# After setting up your .env and installing dependencies, populate products:
+# Populate mock data into your database
 npm run seed
 
 # Run the development server
 npm run dev
+```

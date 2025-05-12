@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../store/cartSlice";
 import { RootState } from "../../store/store";
 import { submitOrder } from "../../services/orderservice";
+import { ReactComponent as CheckIcon } from '../../assets/circle-check-regular.svg'
+import { Link } from "react-router-dom";
 
 const CheckoutForm = () => {
     const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+    const user = useSelector((state: RootState) => state.auth.user)
     const dispatch = useDispatch();
 
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [form, setForm] = useState({
-        email: '',
-        firstName: '',
-        lastName: '',
+        email: (user ? user.email : ''),
+        firstName: (user ? user.firstName : ''),
+        lastName: (user ? user.lastName : ''),
         address1: '',
         address2: '',
         city: '',
@@ -49,10 +53,44 @@ const CheckoutForm = () => {
             const response = await submitOrder(orderPayload);
             console.log('Order placed:', response);
             dispatch(clearCart());
+            setForm({
+                email: (user ? user.email : ''),
+                firstName: (user ? user.firstName : ''),
+                lastName: (user ? user.lastName : ''),
+                address1: '',
+                address2: '',
+                city: '',
+                state: '',
+                zip: ''
+            });
+            setFormSubmitted(true);
         } catch (err) {
             console.error('Error placing order:', err);
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            setForm((prev) => ({
+                ...prev,
+                email: user.email || '',
+                firstName: user.firstName || '',
+                lastName: user.lastName || '',
+            }));
+        }
+    }, [user]);
+
+    if (formSubmitted) {
+        return (
+            <div className='row mx-auto' style={{ maxWidth: '1200px', height: '75vh' }}>
+                <div className="d-flex justify-content-center align-items-center flex-column">
+                    <CheckIcon style={{ width: '100px' }} />
+                    <p className="mt-3">Order Submitted</p>
+                    <Link to="/" className="btn btn-outline-secondary mt-3">Continue Shopping</Link>
+                </div>
+            </div>
+        );
+    }
 
     return (<>
         <h2 className="ms-2 mb-3">Checkout</h2>

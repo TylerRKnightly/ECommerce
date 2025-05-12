@@ -22,8 +22,8 @@ const login = async ({ email, password }: LoginCreds) => {
     return res.data;
 };
 
-const getProfile = async () => {
-    const res = await axios.get(`${API_URL}/profile`);
+const getUser = async (userId: string) => {
+    const res = await axios.post(`${API_URL}/user`, {userId});
     return res.data;
 };
 
@@ -31,4 +31,4 @@ const logout = () => {
     localStorage.removeItem('token');
 };
 
-export default { login, getProfile, logout };
+export default { login, getUser, logout };

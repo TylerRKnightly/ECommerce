@@ -35,7 +35,7 @@ const Cart = () => {
     };
 
     return (
-        <div className="container py-5">
+        <>
             <h2 className="mb-4">Your Shopping Cart</h2>
             <div className="row">
                 <div className="col-lg-8">
@@ -76,7 +76,7 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

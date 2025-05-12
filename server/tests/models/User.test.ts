@@ -22,7 +22,8 @@ describe('User Model', () => {
   });
 
   const validUserData: Partial<IUser> = {
-    name: 'John Doe',
+    firstName: 'John',
+    lastName: 'Doe',
     email: 'john@example.com',
     password: 'password123',
     role: 'user',
@@ -33,7 +34,8 @@ describe('User Model', () => {
     const savedUser = await user.save();
 
     expect(savedUser._id).toBeDefined();
-    expect(savedUser.name).toBe(validUserData.name);
+    expect(savedUser.firstName).toBe(validUserData.firstName);
+    expect(savedUser.lastName).toBe(validUserData.lastName);
     expect(savedUser.email).toBe(validUserData.email!.toLowerCase());
     expect(savedUser.role).toBe('user');
     expect(savedUser.createdAt).toBeInstanceOf(Date);
@@ -89,7 +91,8 @@ describe('User Model', () => {
 
     expect(error).toBeDefined();
     expect(error.name).toBe('ValidationError');
-    expect(error.errors['name']).toBeDefined();
+    expect(error.errors['firstName']).toBeDefined();
+    expect(error.errors['lastName']).toBeDefined();
     expect(error.errors['email']).toBeDefined();
     expect(error.errors['password']).toBeDefined();
   });
