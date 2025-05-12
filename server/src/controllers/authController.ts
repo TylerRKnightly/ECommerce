@@ -9,7 +9,7 @@ const generateToken = (id: string, rememberMe: boolean) => {
 };
 
 export const registerUser: RequestHandler = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
   if (userExists) {
@@ -22,7 +22,8 @@ export const registerUser: RequestHandler = async (req: Request, res: Response) 
   if (user) {
     res.status(201).json({
         _id: user._id,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         role: user.role,
         token: generateToken(user._id as string, false), 
@@ -42,7 +43,8 @@ export const loginUser = async (req: Request, res: Response) => {
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       role: user.role,
       token: generateToken(user._id as string, rememberMe), 
