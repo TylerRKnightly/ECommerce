@@ -11,7 +11,7 @@ import Footer from './components/footer/Footer';
 import Checkout from './pages/Checkout';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
-import UserDashboard from './pages/Account';
+import Account from './pages/Account';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -42,7 +42,7 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path='/login' element={<Login />} />
             <Route path='/checkout' element={<Checkout />} />
-            <Route path='/account' element={<UserDashboard />} />
+            <Route path='/account' element={<Account />} />
           </Routes>
         </div>
       </div>

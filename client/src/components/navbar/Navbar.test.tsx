@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Navbar from './Navbar';
-import { categories } from '../../data/categories';
+import { categories } from '../../data/mockCategories';
 import { Provider } from 'react-redux';
-import {store} from '../../store/store'
+import { store } from '../../store/store'
 
 const getComponent = () => {
     return render(

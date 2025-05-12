@@ -1,4 +1,4 @@
-import { categories } from '../../data/categories';
+import { categories } from '../../data/mockCategories';
 import { ReactComponent as Logo } from '../../assets/logo.svg'
 import { ReactComponent as SearchIcon } from '../../assets/magnifying-glass-solid.svg'
 import { Link, useLocation } from 'react-router-dom';
@@ -44,8 +44,8 @@ const Navbar = () => {
                         </form>
                     </div>
                     <div className="col d-flex justify-content-end">
-                            <UserButton />
-                            <span><CartButton /></span>
+                        <UserButton />
+                        <span><CartButton /></span>
                     </div>
                 </>)}
             </div>
