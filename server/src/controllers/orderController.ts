@@ -68,6 +68,7 @@ export const createOrder = async (
     req: AuthenticatedRequest,
     res: Response
   ): Promise<void> => {
+    console.log('🛠️ getMyOrders route hit');
     try {
       console.log('🔍 getMyOrders called by user:', req.user);
   
