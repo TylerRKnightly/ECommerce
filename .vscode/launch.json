@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // {
+    //   "name": "Debug React App",
+    //   "type": "pwa-chrome",
+    //   "request": "launch",
+    //   "url": "http://localhost:3000",
+    //   "webRoot": "${workspaceFolder}/client/src",
+    //   "breakOnLoad": true
+    // },
+    {
+      "name": "Debug Server",
+      "type": "pwa-node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/src/server.ts",
+      "cwd": "${workspaceFolder}/server",
+      "runtimeArgs": ["--require", "ts-node/register"],
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "outFiles": ["${workspaceFolder}/server/**/*.js"]
+    }
+  ]
+}

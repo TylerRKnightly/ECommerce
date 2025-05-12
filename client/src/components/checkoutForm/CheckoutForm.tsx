@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../store/cartSlice";
 import { RootState } from "../../store/store";
@@ -10,22 +10,12 @@ const CheckoutForm = () => {
     const cartItems = useSelector((state: RootState) => state.cart.cartItems);
     const user = useSelector((state: RootState) => state.auth.user)
     const dispatch = useDispatch();
-    const baseForm = {
-        email: (user ? user.email : ''),
-        firstName: (user ? user.email : ''),
-        lastName: (user ? user.email : ''),
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        zip: ''
-    };
 
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [form, setForm] = useState({
         email: (user ? user.email : ''),
-        firstName: (user ? user.name : ''),
-        lastName: (user ? user.name : ''),
+        firstName: (user ? user.firstName : ''),
+        lastName: (user ? user.lastName : ''),
         address1: '',
         address2: '',
         city: '',
@@ -63,13 +53,32 @@ const CheckoutForm = () => {
             const response = await submitOrder(orderPayload);
             console.log('Order placed:', response);
             dispatch(clearCart());
-            setForm(baseForm);
+            setForm({
+                email: (user ? user.email : ''),
+                firstName: (user ? user.firstName : ''),
+                lastName: (user ? user.lastName : ''),
+                address1: '',
+                address2: '',
+                city: '',
+                state: '',
+                zip: ''
+            });
             setFormSubmitted(true);
         } catch (err) {
             console.error('Error placing order:', err);
         }
     };
 
+    useEffect(() => {
+        if (user) {
+            setForm((prev) => ({
+                ...prev,
+                email: user.email || '',
+                firstName: user.firstName || '',
+                lastName: user.lastName || '',
+            }));
+        }
+    }, [user]);
 
     if (formSubmitted) {
         return (

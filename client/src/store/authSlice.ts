@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from '../services/authService';
-import { User } from '../types/user'
+import { UserData } from '../types/user'
 import axios from 'axios';
 
 
 interface AuthModel {
-    user: User | null;
+    user: UserData | null;
     loading: boolean;
     error: string | null;
 }
@@ -13,7 +13,7 @@ interface AuthModel {
 const initialState: AuthModel = {
     user: null,
     loading: false,
-    error: null,
+    error: null
 };
 
 export interface LoginCreds {
@@ -34,9 +34,9 @@ export const login = createAsyncThunk('auth/login', async (credentials: LoginCre
     }
 });
 
-export const loadUser = createAsyncThunk('auth/loadUser', async (_, thunkAPI) => {
+export const loadUser = createAsyncThunk('auth/user', async (userId:string, thunkAPI) => {
     try {
-        return await authService.getProfile();
+        return await authService.getUser(userId);
     } catch (error) {
         return thunkAPI.rejectWithValue('Not authenticated');
     }

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { clearAuthError, login, logout } from '../../store/authSlice';
 import { ReactComponent as UserIcon } from '../../assets/user-solid.svg'
@@ -11,6 +11,7 @@ const UserButton = () => {
     let dropdownRef = useRef(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const isLoggedIn = !!localStorage.getItem('token');
 
     const [email, setEmail] = useState('');
@@ -24,7 +25,9 @@ const UserButton = () => {
 
     const handleLogout = () => {
         dispatch(logout());
-        navigate('/');
+        if (location.pathname === '/account') {
+            navigate('/');
+        }
     };
 
     const closeDropdown = () => {

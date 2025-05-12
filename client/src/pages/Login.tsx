@@ -37,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container py-5">
+    <>
       <div className="row justify-content-center">
         <div className={`col-md-${fromCart ? '6' : '8'}`}>
           <h2>Login</h2>
@@ -69,7 +69,7 @@ const Login = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
