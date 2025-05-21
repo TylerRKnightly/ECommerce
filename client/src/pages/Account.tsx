@@ -9,7 +9,7 @@ import { RootState } from "../store/store";
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_APP_API_URL;
 
-const User = () => {
+const Account = () => {
 	// const dispatch = useAppDispatch();
 	// const navigate = useNavigate();
 	const [orders, setOrders] = useState<OrderData[]>([]);
@@ -96,4 +96,4 @@ const User = () => {
 	);
 }
 
-export default User;
+export default Account;
